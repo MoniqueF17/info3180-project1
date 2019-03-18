@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% block css %} 
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/contact.css') }}"/>
+{% endblock%}
+{% block main %}
+<h1>Add Profile</h1>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class="alert alert-success">
+      <ul class="flashes">
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+{% endwith %}
+
+
+<form class="well form-horizontal" action="{{ url_for('add_file') }}" method="post"  id="profile_form" enctype="multipart/form-data">
+<fieldset>
+
+ <!-- Text input-->   
+<div class="form-group">
+  <label class="col-md-4 control-label">First Name:</label>  
+  <div class="col-md-4 inputGroupContainer">
+  <div class="input-group">
+  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+  <input required name="fName" class="form-control"  type="text">
+  </div>
+  </div>
+</div><br>
+
+<!-- Text input-->   
+<div class="form-group">
+  <label class="col-md-4 control-label">Last Name:</label>  
+  <div class="col-md-4 inputGroupContainer">
+  <div class="input-group">
+  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+  <input required name="lName" class="form-control"  type="text">
+  </div>
+  </div>
+</div><br>
+
+<!-- Text input-->   
+<div class="form-group">
+  <div class="col-md-4 inputGroupContainer">
+  <div class="input-group">
+  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+  <div>
+    <label for="gender">Gender:</label>
+    <select name="gender">
+    <option value="Empty"> Empty </option>
+    <option value="Male">Male</option>
+    <option value="Female">Female</option>
+    </select>
+  </div><br>
+  </div>
+  </div>
+</div>
+
+<!-- Text input-->   
+<div class="form-group">
+  <label class="col-md-4 control-label">Email:</label>  
+  <div class="col-md-4 inputGroupContainer">
+  <div class="input-group">
+  <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+  <input required name="email" placeholder="eg. jdoe@example.com" class="form-control"  type="email">
+  </div>
+  </div>
+</div><br>
+
+<!-- Text input-->   
+<div class="form-group">
+  <label class="col-md-4 control-label">Location:</label>  
+  <div class="col-md-4 inputGroupContainer">
+  <div class="input-group">
+  <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span>
+  <input required name="location" placeholder="eg. Kingston, Jamaica" class="form-control"  type="text">
+  </div>
+  </div>
+</div><br>
+
+<!-- Text area -->  
+<div class="form-group">
+  <label class="col-md-4 control-label">Biography:</label>
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+      <textarea required class="form-control" name="bio" placeholder="Enter a short profile bio here" rows="2"></textarea>
+    </div>
+    </div>
+</div><br>
+
+<!-- File Upload area -->  
+<div class="form-group">
+    <label for="file">Profile Picture</label>
+    <input type="file" name="file" class="form-control" />
+</div><br>
+ 
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label"></label>
+  <div class="col-md-4">
+    <button type="submit" class="btn btn-primary btn-lg">Add Profile<span class="glyphicon glyphicon-send"></span></button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+
+{% endblock %}

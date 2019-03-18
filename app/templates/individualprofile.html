@@ -1,0 +1,26 @@
+<div class="profile">
+    <div class="profile-image">
+        {% if profile.pic %}
+            <img src="{{ url_for('static',filename="upload/"+profile.pic)}}">
+        {% else %}
+            <img src="{{ url_for('static',filename="upload/default-profile.jpg") }}">
+        {% endif %}
+    </div>
+    <div class="profile">
+        <h3>{{ profile.first_name }} {{ profile.last_name }}</h3>
+        <p>{{ profile.email }}</p>
+        <p>{{ profile.location }}</p>
+        <p>{{ profile.created }}</p>
+        <p><strong>About Me:</strong> {{ profile.bio }}</p>
+    </div>
+
+    <div class="profile-requests">
+        <form action="{{ url_for('userprofile',userid=profile.id) }}" method="get">
+            <button class="btn btn-sm btn-warning submit-btn" type="submit">GET</button>
+        </form>
+
+        <form action="{{ url_for('userprofile',userid=profile.id) }}" method="post" enctype="application/json">
+            <button class="btn btn-sm btn-info submit-btn" type="submit">POST</button>
+        </form>
+    </div>
+</div>

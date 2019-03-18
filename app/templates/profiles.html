@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+
+
+{%block main %}
+    <h1>Profiles</h1>
+    <br/>
+    <div>
+        <!--<form action="{{ url_for('profiles') }}" method="post"  enctype="application/json">
+            <button class="btn btn-lg btn-info submit-btn" type="submit">POST</button>
+        </form>-->
+    </div>
+    {% for profile in profile %}
+        {% include 'individualprofile.html' %}
+    {% endfor %}
+{% endblock %}
