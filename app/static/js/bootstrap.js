@@ -4,15 +4,17 @@
  * Licensed under the MIT license
  */
 
+/* global jQuery */
+
 if (typeof jQuery === 'undefined') {
-  throw new Error('Bootstrap\'s JavaScript requires jQuery')
+  throw new Error('Bootstrap\'s JavaScript requires jQuery');
 }
 
 +function ($) {
   'use strict';
-  var version = $.fn.jquery.split(' ')[0].split('.')
+  var version = $.fn.jquery.split(' ')[0].split('.');
   if ((version[0] < 2 && version[1] < 9) || (version[0] == 1 && version[1] == 9 && version[2] < 1) || (version[0] > 3)) {
-    throw new Error('Bootstrap\'s JavaScript requires jQuery version 1.9.1 or higher, but lower than version 4')
+    throw new Error('Bootstrap\'s JavaScript requires jQuery version 1.9.1 or higher, but lower than version 4');
   }
 }(jQuery);
 
@@ -91,49 +93,49 @@ if (typeof jQuery === 'undefined') {
   // ALERT CLASS DEFINITION
   // ======================
 
-  var dismiss = '[data-dismiss="alert"]'
+  var dismiss = '[data-dismiss="alert"]';
   var Alert   = function (el) {
-    $(el).on('click', dismiss, this.close)
-  }
+    $(el).on('click', dismiss, this.close);
+  };
 
-  Alert.VERSION = '3.3.7'
+  Alert.VERSION = '3.3.7';
 
-  Alert.TRANSITION_DURATION = 150
+  Alert.TRANSITION_DURATION = 150;
 
   Alert.prototype.close = function (e) {
-    var $this    = $(this)
-    var selector = $this.attr('data-target')
+    var $this    = $(this);
+    var selector = $this.attr('data-target');
 
     if (!selector) {
-      selector = $this.attr('href')
+      selector = $this.attr('href');
       selector = selector && selector.replace(/.*(?=#[^\s]*$)/, '') // strip for ie7
     }
 
-    var $parent = $(selector === '#' ? [] : selector)
+    var $parent = $(selector === '#' ? [] : selector);
 
-    if (e) e.preventDefault()
+    if (e) e.preventDefault();
 
     if (!$parent.length) {
-      $parent = $this.closest('.alert')
+      $parent = $this.closest('.alert');
     }
 
-    $parent.trigger(e = $.Event('close.bs.alert'))
+    $parent.trigger(e = $.Event('close.bs.alert'));
 
-    if (e.isDefaultPrevented()) return
+    if (e.isDefaultPrevented()) return;
 
-    $parent.removeClass('in')
+    $parent.removeClass('in');
 
     function removeElement() {
       // detach from parent, fire event then clean up data
-      $parent.detach().trigger('closed.bs.alert').remove()
+      $parent.detach().trigger('closed.bs.alert').remove();
     }
 
     $.support.transition && $parent.hasClass('fade') ?
       $parent
         .one('bsTransitionEnd', removeElement)
         .emulateTransitionEnd(Alert.TRANSITION_DURATION) :
-      removeElement()
-  }
+      removeElement();
+  };
 
 
   // ALERT PLUGIN DEFINITION

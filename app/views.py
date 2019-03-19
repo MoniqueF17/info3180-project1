@@ -56,7 +56,7 @@ def login():
                 next = request.args.get('next')
                 return redirect(url_for('secure_page'))
             else:
-                flash('Username or Password is incorrect.', 'danger')
+                flash('Email or Password is incorrect.', 'danger')
                 
     return render_template("login.html", form=form)
 
@@ -80,32 +80,34 @@ def add_file():
 
     
 
-    # if request.method == 'POST' and (request.form['fName'] and request.form['lName'] and 
-    #     request.form['age'] and request.form['bio'] and request.form['file']):
+    # if request.method == 'POST' and (request.form['fName'] and request.form['lName'] and request.form['email'] and 
+    # request.form['gender'] and request.form['location'] and request.form['bio'] and request.form['file']):
         
     # print "First Name: %s" % request.form['fName']
     # print "Last Name: %s" % request.form['lName']
-    # print "User Name: %s" % request.form['userName']
+    # print "Email: %s" % request.form['email']
     # print "Gender: %s" % request.form['gender']  
-    # print "Age : %s" % request.form['age'] 
+    # print "Location : %s" % request.form['location'] 
     # print "Bio : %s" % request.form['bio']
     # print "File: %s" % request.files['file'].filename
 
-    NewProfile = UserProfileNew(request.form['fName'], request.form['lName'],request.form['userName'],request.form['age'], request.form['bio'], request.files['file'].filename,request.form['gender'])
+    NewProfile = UserProfileNew(request.form['fName'], request.form['lName'],request.form['email'],request.form['location'], request.form['bio'], request.form['created_on'], request.files['file'].filename,request.form['gender'])
     
     # first_name = db.Column(db.String(80))
     # last_name = db.Column(db.String(80))
-    # username = db.Column(db.String(80))
-    # age = db.Column(db.Integer)
+    # gender = db.Column(db.String(10))
+    # email = db.Column(db.String(80))
+    # location = db.Column(db.String(80))
     # bio = db.Column(db.String(140))
     # image = db.Column(db.String(255))
-    # gender = db.Column(db.String(10))
     
     db.session.add(NewProfile)
     db.session.commit()
         # fName = request.form['fName']
-        # lName = request.form['lName']  
-        # age = request.form['age'] 
+        # lName = request.form['lName'] 
+        # gender = request.form['gender']
+        # email = request.form['email']
+        # location = request.form['location']
         # bio = request.form['bio']
 
         # file = request.files['file']
@@ -148,8 +150,8 @@ def profile():
         time_created = time.strftime('%Y/%b/%d')
         fname = request.form['first_name']
         lname = request.form['last_name']
-        uname = request.form['user_name']
-        age = request.form['age']
+        uname = request.form['email']
+        location = request.form['location']
         biography =request.form['bio']
         sex =request.form['gender']
         
@@ -160,17 +162,12 @@ def profile():
             filename = secure_filename(profilepic.filename)
             profilepic.save(os.path.join(uploadfolder, filename))
             
-        user = UserProfile(id= uid, first_name=fname, last_name=lname, username=uname, age = age, gender=sex, bio=biography, created = time_created, pic=profilepic.filename)
+        user = UserProfile(id= uid, first_name=fname, last_name=lname, username=uname, location = location, gender=sex, bio=biography, created = time_created, pic=profilepic.filename)
         db.session.add(user)
         db.session.commit()
         flash('New User was successfully added')
         return redirect(url_for('home'))
     return render_template('Profile.html')
-
-
-
-
-########################################################################################
 
 @app.route('/profiles', methods=['GET','POST'])
 def profiles():
@@ -180,20 +177,18 @@ def profiles():
     
     if request.method == 'POST':
         for profile in profiles:
-            profile_list +=[{'username':profile.username, 'userID':profile.id}]
+            profile_list +=[{'email':profile.email, 'userID':profile.id}]
         return jsonify(users=profile_list)
     elif request.method == 'GET':
         return render_template('profiles.html', profile=profiles)
     return redirect(url_for('home'))
-
-#######################################################################################
 
 @app.route('/profile/<userid>', methods=['GET', 'POST'])
 def userprofile(userid):
     json={}
     user = UserProfile.query.filter_by(id=userid).first()
     if request.method == 'POST':
-        json={'userid':user.id, 'username':user.username, 'profile_image':user.pic, 'gender':user.gender, 'age':user.age, 'created_on':user.created}
+        json={'userid':user.id, 'email':user.email, 'profile_image':user.pic, 'gender':user.gender, 'location':user.location, 'created_on':user.created}
         return jsonify(json)
 
     elif request.method == 'GET' and user:

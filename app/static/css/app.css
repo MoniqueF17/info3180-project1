@@ -1,8 +1,100 @@
 body {
     padding-top: 50px;
+    background: #ffffff;
 }
 
 .form-login {
   width: 600px;
   margin: 0 auto;
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+  padding: 20px;
+  /*margin-left: 160px;
+  margin-top: 20px;*/
+  margin: auto;
+  /*background: #ffffff;*/
+  height: 300px;
+  width: 70%;
+  border-top: 4px solid #3399ff;
+  border-radius: 10px;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-container > .profile-image{
+  text-align: center;
+}
+
+.flex-container > .profile-info {
+  margin-left: 80px;
+  margin-bottom: 20px;
+}
+
+#send-button {
+  color: #ffffff;
+  font-family: "Helvetica";
+  font-size: 10pt;
+  background-color: #7fff00;
+  border-radius: 5px;
+  width: 150px;
+  height: 30px;
+  position: absolute;
+  top: 250px;
+  left: 180px;
+  cursor: hand;
+}
+
+#follow-button {
+  color: #ffffff;
+  font-family: "Helvetica";
+  font-size: 10pt;
+  background-color: #3399ff;
+  border-radius: 5px;
+  width: 150px;
+  height: 30px;
+  position: absolute;
+  top: 250px;
+  left: 370px;
+  cursor: hand;
+}
+
+fieldset, accountinfo, login-form {
+  position: relative;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+  padding: 20px;
+  margin: auto;
+  background: #ffffff;
+  height: 50%;
+  width: 80%;
+  border-top: 4px solid #3399ff;
+  border-radius: 5px;
+}
+
+#add-button {
+  color: #ffffff;
+  font-family: "Helvetica";
+  font-size: 10pt;
+  background-color: #7fff00;
+  border-radius: 5px;
+  cursor: hand;
+}
+
+.profile-list {
+  position: relative;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+  padding: 20px;
+  margin: auto;
+  background: #ffffff;
+  height: 100px;
+  width: 450px;
+  border-top: 4px solid #3399ff;
+  border-radius: 5px;
 }
